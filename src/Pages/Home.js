@@ -1,45 +1,53 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import CourseCard from '../components/CourseCard';
 import { AuthContext } from '../contexts/AuthContext';
-import { FaReact, FaNodeJs, FaRobot, FaBrain } from 'react-icons/fa';
+import CourseCard from '../components/CourseCard';
+import { FaCode, FaReact, FaPython, FaBrain } from 'react-icons/fa';
 
 const courses = [
   { 
     id: 1, 
-    title: 'React for Beginners', 
-    price: 99, 
-    Icon: FaReact, 
-    stripeLink: 'https://buy.stripe.com/test_6oE3fW9Um8RUg5q8ww',
-    totalSeats: 50,
-    availableSeats: 15
+    name: 'Advanced JavaScript', 
+    description: 'Master modern JavaScript concepts and practices.',
+    price: 99.99, 
+    stripeLink: 'https://buy.stripe.com/test_yourLinkForJavaScriptCourse',
+    icon: FaCode,
+    duration: '8 weeks',
+    level: 'Intermediate',
+    availableSeats: 20
   },
   { 
     id: 2, 
-    title: 'Advanced Node.js', 
-    price: 120, 
-    Icon: FaNodeJs, 
-    stripeLink: 'https://buy.stripe.com/test_00g8AgaYqece6uQ7st',
-    totalSeats: 40,
-    availableSeats: 5
+    name: 'React Fundamentals', 
+    description: 'Build powerful web applications with React.',
+    price: 129.99, 
+    stripeLink: 'https://buy.stripe.com/test_yourLinkForReactCourse',
+    icon: FaReact,
+    duration: '10 weeks',
+    level: 'Beginner to Intermediate',
+    availableSeats: 15
   },
   { 
     id: 3, 
-    title: 'Building Full Stack with AI', 
-    price: 149, 
-    Icon: FaRobot, 
-    stripeLink: 'https://buy.stripe.com/test_6oE5o4feGece7yU28a',
-    totalSeats: 30,
-    availableSeats: 30
+    name: 'Python for Data Science', 
+    description: 'Learn Python for data analysis and machine learning.',
+    price: 149.99, 
+    stripeLink: 'https://buy.stripe.com/test_yourLinkForPythonCourse',
+    icon: FaPython,
+    duration: '12 weeks',
+    level: 'Intermediate to Advanced',
+    availableSeats: 25
   },
   { 
     id: 4, 
-    title: 'Machine Learning Fundamentals', 
-    price: 129, 
-    Icon: FaBrain, 
-    stripeLink: 'https://buy.stripe.com/test_8wMaIo0jM4BEg5q8wz',
-    totalSeats: 35,
-    availableSeats: 0
+    name: 'Machine Learning Fundamentals', 
+    description: 'Introduction to core machine learning concepts and algorithms.',
+    price: 199.99, 
+    stripeLink: 'https://buy.stripe.com/test_yourLinkForMLCourse',
+    icon: FaBrain,
+    duration: '14 weeks',
+    level: 'Advanced',
+    availableSeats: 18
   }
 ];
 
@@ -47,8 +55,8 @@ const HeroSection = () => (
   <div className="bg-blue-600 text-white py-20 mb-12 rounded-lg shadow-lg">
     <div className="container mx-auto px-6">
       <h1 className="text-5xl font-extrabold mb-4">Level Up Your Coding & AI Skills</h1>
-      <p className="text-xl mb-8">Join thousands of developers who have transformed their careers with our premium courses, now including cutting-edge AI topics!</p>
-      <a href="#courses" className="bg-white text-blue-600 font-bold py-3 px-6 rounded-full hover:bg-blue-100 transition duration-300">
+      <p className="text-xl mb-8">Join our premium courses and transform your career in tech.</p>
+      <a href="#courses" className="bg-white text-blue-600 py-3 px-6 rounded-full font-bold hover:bg-blue-100 transition duration-300">
         Explore Courses
       </a>
     </div>

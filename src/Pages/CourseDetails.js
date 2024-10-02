@@ -1,83 +1,134 @@
 import React from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
-import { FaReact, FaNodeJs } from 'react-icons/fa';
+import { useParams, Link } from 'react-router-dom';
+import CheckoutButton from '../components/CheckoutButton';
+import { FaCode, FaReact, FaPython, FaBrain } from 'react-icons/fa';
 
 const courses = [
   { 
     id: 1, 
-    name: 'React Course', 
-    description: 'Master React with our comprehensive course. Learn to build dynamic, interactive web applications from the ground up. Perfect for beginners and intermediate developers looking to level up their skills.',
+    name: 'Advanced JavaScript', 
+    description: 'Master modern JavaScript concepts and practices. This course covers advanced topics such as closures, prototypes, async programming, and ES6+ features.',
     price: 99.99, 
-    stripeLink: 'https://buy.stripe.com/test_6oE3fW9Um8RUg5q8ww',
-    icon: FaReact,
-    duration: '10 weeks',
-    level: 'Beginner to Intermediate'
+    stripeLink: 'https://buy.stripe.com/test_aEU29C3vY4BE1Gg5kk',
+    icon: FaCode,
+    duration: '8 weeks',
+    level: 'Intermediate',
+    availableSeats: 20,
+    syllabus: [
+      'Week 1: Advanced Functions and Scope',
+      'Week 2: Closures and Prototypes',
+      'Week 3: Asynchronous JavaScript',
+      'Week 4: ES6+ Features',
+      'Week 5: Modules and Build Tools',
+      'Week 6: Testing and Debugging',
+      'Week 7: Performance Optimization',
+      'Week 8: Real-world Project'
+    ]
   },
   { 
     id: 2, 
-    name: 'Node.js Course', 
-    description: 'Dive into server-side JavaScript with our Node.js course. Learn to build scalable and efficient web applications using Node.js and Express. Ideal for developers looking to expand their full-stack capabilities.',
-    price: 89.99, 
-    stripeLink: 'https://buy.stripe.com/test_00g8AgaYqece6uQ7st',
-    icon: FaNodeJs,
-    duration: '8 weeks',
-    level: 'Intermediate'
+    name: 'React Fundamentals', 
+    description: 'Build powerful web applications with React. Learn component-based architecture, state management, and how to create responsive UIs.',
+    price: 129.99, 
+    stripeLink: 'https://buy.stripe.com/test_00g3dG3vY7NO3OoeUV',
+    icon: FaReact,
+    duration: '10 weeks',
+    level: 'Beginner to Intermediate',
+    availableSeats: 15,
+    syllabus: [
+      'Week 1: Introduction to React and JSX',
+      'Week 2: Components and Props',
+      'Week 3: State and Lifecycle',
+      'Week 4: Handling Events and Forms',
+      'Week 5: Conditional Rendering and Lists',
+      'Week 6: Hooks (useState, useEffect)',
+      'Week 7: Context API and useContext',
+      'Week 8: React Router',
+      'Week 9: State Management with Redux',
+      'Week 10: Building a Full React Application'
+    ]
+  },
+  { 
+    id: 3, 
+    name: 'Python for Data Science', 
+    description: 'Learn Python for data analysis and machine learning. Cover libraries like NumPy, Pandas, and Scikit-learn to analyze and visualize data.',
+    price: 149.99, 
+    stripeLink: 'https://buy.stripe.com/test_28o29C0jM9VW1Gg7su',
+    icon: FaPython,
+    duration: '12 weeks',
+    level: 'Intermediate to Advanced',
+    availableSeats: 25,
+    syllabus: [
+      'Week 1-2: Python Basics and Data Structures',
+      'Week 3-4: NumPy and Mathematical Computing',
+      'Week 5-6: Data Manipulation with Pandas',
+      'Week 7-8: Data Visualization with Matplotlib and Seaborn',
+      'Week 9-10: Introduction to Machine Learning with Scikit-learn',
+      'Week 11-12: Final Project and Advanced Topics'
+    ]
+  },
+  { 
+    id: 4, 
+    name: 'Machine Learning Fundamentals', 
+    description: 'Introduction to core machine learning concepts and algorithms. Learn about supervised and unsupervised learning, neural networks, and deep learning basics.',
+    price: 199.99, 
+    stripeLink: 'https://buy.stripe.com/test_8wMaIo0jM4BEg5q8wz',
+    icon: FaBrain,
+    duration: '14 weeks',
+    level: 'Advanced',
+    availableSeats: 18,
+    syllabus: [
+      'Week 1-2: Introduction to Machine Learning and Python for ML',
+      'Week 3-4: Supervised Learning: Regression and Classification',
+      'Week 5-6: Unsupervised Learning: Clustering and Dimensionality Reduction',
+      'Week 7-8: Model Evaluation and Validation',
+      'Week 9-10: Ensemble Methods and Random Forests',
+      'Week 11-12: Introduction to Neural Networks and Deep Learning',
+      'Week 13-14: Final Project and Advanced Topics'
+    ]
   },
 ];
 
-function CourseDetails() {
+const CourseDetails = () => {
+  console.log("CourseDetails component rendered");
   const { id } = useParams();
-  const navigate = useNavigate();
+  console.log("Course ID:", id);
   const course = courses.find(c => c.id === parseInt(id));
 
-  React.useEffect(() => {
-    if (!course) {
-      navigate('/courses');
-    }
-  }, [course, navigate]);
-
   if (!course) {
-    return <div className="flex justify-center items-center h-screen text-xl text-gray-700">Loading...</div>;
+    return <div>Course not found</div>;
   }
 
-  const handlePurchase = () => {
-    window.location.href = course.stripeLink;
-  };
-
-  const IconComponent = course.icon;
+  const Icon = course.icon;
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-4xl w-full">
-        <div className="h-72 bg-gradient-to-r from-blue-500 to-purple-600 relative flex justify-center items-center">
-          <IconComponent className="text-white w-40 h-40" />
-          <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-6">
-            <h1 className="text-3xl font-bold text-white">{course.name}</h1>
-          </div>
-        </div>
+    <div className="container mx-auto p-6">
+      <Link to="/" className="text-blue-500 hover:text-blue-600 mb-4 inline-block">&larr; Back to Courses</Link>
+      <div className="bg-white rounded-lg shadow-md overflow-hidden">
         <div className="p-6">
-          <p className="text-gray-700 text-lg mb-4">{course.description}</p>
-          <div className="flex justify-between text-sm text-gray-600 mb-4">
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              {course.duration}
-            </span>
-            <span className="flex items-center">
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-              {course.level}
-            </span>
+          <div className="flex items-center mb-4">
+            <Icon className="text-5xl text-blue-500 mr-4" />
+            <h1 className="text-3xl font-bold">{course.name}</h1>
           </div>
-          <div className="text-4xl font-bold text-green-600 mb-6">${course.price}</div>
-          <button 
-            onClick={handlePurchase}
-            className="w-full bg-green-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-green-600 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg"
-          >
-            Enroll Now
-          </button>
+          <p className="text-gray-600 mb-4">{course.description}</p>
+          <div className="mb-4">
+            <p className="text-gray-700"><strong>Duration:</strong> {course.duration}</p>
+            <p className="text-gray-700"><strong>Level:</strong> {course.level}</p>
+            <p className="text-gray-700"><strong>Available Seats:</strong> {course.availableSeats}</p>
+          </div>
+          <p className="text-3xl font-bold text-blue-600 mb-4">${course.price.toFixed(2)}</p>
+          <CheckoutButton stripeLink={course.stripeLink} />
+          
+          <h2 className="text-2xl font-semibold mt-8 mb-4">Course Syllabus</h2>
+          <ul className="list-disc pl-5">
+            {course.syllabus.map((week, index) => (
+              <li key={index} className="mb-2">{week}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default CourseDetails;
