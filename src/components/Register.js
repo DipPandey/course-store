@@ -1,7 +1,9 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL;
 
 const Register = () => {
   const [email, setEmail] = useState('');
@@ -13,11 +15,22 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    if (password !== confirmPassword) {
+      setError("Passwords don't match");
+      return;
+    }
+
     try {
-      await axios.post('http://localhost:5000/api/register', { email, password });
-      setMessage('User registered successfully');
-    } catch (error) {
-      setMessage(error.response?.data?.message || 'Error registering user');
+      await axios.post(`${API_URL}/auth/register`, {
+        email,
+        password
+      });
+      await login(email, password);
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.response?.data?.message || 'An error occurred during registration');
     }
   };
 
@@ -87,10 +100,15 @@ const Register = () => {
               type="submit"
               className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
-              Register
+              Sign up
             </button>
           </div>
         </form>
+        <div className="text-sm text-center">
+          <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
+            Already have an account? Sign in
+          </Link>
+        </div>
       </div>
     </div>
   );
