@@ -13,24 +13,11 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-
-    if (password !== confirmPassword) {
-      setError("Passwords don't match");
-      return;
-    }
-
     try {
-      const response = await axios.post('http://localhost:5000/api/auth/register', {
-        email,
-        password
-      });
-
-      // If registration is successful, log the user in
-      await login(email, password);
-      navigate('/dashboard');
-    } catch (err) {
-      setError(err.response?.data?.message || 'An error occurred during registration');
+      await axios.post('http://localhost:5000/api/register', { email, password });
+      setMessage('User registered successfully');
+    } catch (error) {
+      setMessage(error.response?.data?.message || 'Error registering user');
     }
   };
 
