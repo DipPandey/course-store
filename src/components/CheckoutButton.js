@@ -1,7 +1,8 @@
 import React from 'react';
 
 const CheckoutButton = ({ stripeLink }) => {
-  const handleCheckout = () => {
+  const handleCheckout = (e) => {
+    e.preventDefault();
     console.log("Stripe Link:", stripeLink); // For debugging
     if (stripeLink) {
       window.open(stripeLink, '_blank', 'noopener,noreferrer');
